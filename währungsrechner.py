@@ -1,4 +1,5 @@
 import tkinter as tk
+ 
 class Waehrungsrechner:
     def __init__(self, fenster):
         self.fenster = fenster
@@ -24,10 +25,25 @@ class Waehrungsrechner:
         self.knopf = tk.Button(fenster, text="Konvertieren", command=self.umrechnen)
         self.knopf.pack()
        
+        self.knopf2 = tk.Button(fenster, text="Sprache ändern", command=self.sprache)
+        self.knopf2.pack()
        
         self.ergebnis = tk.Label(fenster, text="")
         self.ergebnis.pack()
-
+       
+    def sprache(self):
+        self.deutsch = not self.deutsch
+        if self.deutsch:
+            self.label_info.config(text="Gib den Betrag ein:")
+            self.knopf.config(text="Konvertieren")
+            self.knopf2.config(text="Sprache ändern")
+            self.label_waehrung.config(text="Währung auswählen:")
+        else:
+            self.label_info.config(text="Enter the amount:")
+            self.knopf.config(text="Convert")
+            self.knopf2.config(text="Change language")
+            self.label_waehrung.config(text="Select currency:")
+       
     def umrechnen(self):
         try:
             betrag = float(self.eingabe.get())
@@ -45,4 +61,4 @@ class Waehrungsrechner:
 if __name__ == "__main__":
     fenster = tk.Tk()
     Waehrungsrechner(fenster)
-    fenster.mainloop()  
+    fenster.mainloop()
