@@ -1,4 +1,5 @@
 import tkinter as tk
+import time
  
 class Waehrungsrechner:
     def __init__(self, fenster):
@@ -22,12 +23,15 @@ class Waehrungsrechner:
             self.waehrung_liste.insert(tk.END, w)
         self.waehrung_liste.pack()
        
-        self.knopf = tk.Button(fenster, text="Konvertieren", command=self.umrechnen)
+        self.knopf = tk.Button(fenster, text="Konvertieren", command=lambda: self.umrechnen())
         self.knopf.pack()
        
         self.knopf2 = tk.Button(fenster, text="Sprache ändern", command=self.sprache)
         self.knopf2.pack()
-       
+        
+        self.knopf3 = tk.Button(fenster, text="Färben", command=self.farben)
+        self.knopf3.pack()
+        
         self.ergebnis = tk.Label(fenster, text="")
         self.ergebnis.pack()
        
@@ -43,7 +47,14 @@ class Waehrungsrechner:
             self.knopf.config(text="Convert")
             self.knopf2.config(text="Change language")
             self.label_waehrung.config(text="Select currency:")
-       
+        
+    def farben(self):
+        self.label_waehrung.config(bg="yellow",fg="black")
+        self.label_info.config(bg="purple")
+        self.knopf.config(bg="red")
+        self.knopf2.config(bg="orange")
+        self.knopf2.config(bg="blue")
+
     def umrechnen(self):
         try:
             betrag = float(self.eingabe.get())
@@ -56,7 +67,7 @@ class Waehrungsrechner:
             umgerechnet = betrag * kurse[waehrung]
             self.ergebnis.config(text=f"{umgerechnet} {waehrung}")
         except ValueError:
-            self.ergebnis.config(text="Ungültige Eingabe")
+            self.ergebnis.config(text="Ungültige Eingabe")        
  
 if __name__ == "__main__":
     fenster = tk.Tk()
